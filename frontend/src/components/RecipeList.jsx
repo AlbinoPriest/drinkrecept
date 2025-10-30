@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import Recipe from "./Recipe.jsx";
-import CategoryFilter from "./CategoryFilter.jsx";
 import { useRecipesContext } from "./RecipesContext.jsx";
 
 export default function RecipeList() {
   const [activeCategory, setActiveCategory] = useState("Alla");
   const { searchResult: recipes } = useRecipesContext();
 
-  // Skapa kategorilistan från de recept som kommer in via props
+  // Skapa kategorilistan från de recept som hämtas från context
   const categories = useMemo(() => {
     const set = new Set();
     recipes.forEach((r) => (r.categories || []).forEach((c) => set.add(c)));
@@ -29,17 +28,10 @@ export default function RecipeList() {
   }, [recipes, activeCategory]);
 
   return (
-    <div>
-      <CategoryFilter
-        categories={categories}
-        activeCategory={activeCategory}
-        onSelectCategory={setActiveCategory}
-      />
-      <div className="recipes-container">
-        {filteredRecipes.map((r, i) => (
-          <Recipe key={r._id ?? i} recipe={r} />
-        ))}
-      </div>
+    <div className="recipes-container">
+      {filteredRecipes?.map((r, i) => (
+        <Recipe key={r._id ?? i} recipe={r} />
+      ))}
     </div>
   );
 }

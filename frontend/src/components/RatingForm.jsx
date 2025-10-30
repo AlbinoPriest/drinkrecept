@@ -9,17 +9,19 @@ export default function RatingForm({ ratingLevels = [1, 2, 3, 4, 5], confirmatio
 
   const { updateAvgRating, updateUserRatings, userRatings } = useRecipesContext();
 
-  useEffect(() =>  {
-    console.log(userRatings);
-    const found = userRatings?.find((r) => r.recipeId === recipe._id)?.rating;
-    setUserRating(found ? found : null);
-    console.log(`Updated user rating: ${userRating}`);
-    disableRating(userRating ? true : false);
-    console.log(`Rating button disabled: ${isRatingDisabled}`);
+  useEffect(() => {
+    if (!userRatings?.length) return;
+    const found = userRatings?.find((r) => r.recipeId === recipe._id)?.rating ?? null;
+    setUserRating(found);
+    disableRating(found !== null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userRatings]);
 
   const handleRatingClick = (rating) => {
+    if (isRatingDisabled) return; // guard against double-clicks
+    disableRating(true); // instant disable
+    setUserRating(rating); // optional optimistic UI update
+
     const API_URL = "https://grupp3-jynxa.reky.se";
     const POST_RATING_URI = `/recipes/${recipe._id}/ratings`;
     const GET_URI = `/recipes/${recipe._id}`;
