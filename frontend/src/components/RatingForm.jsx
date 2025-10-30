@@ -62,7 +62,7 @@ export default function RatingForm({ ratingLevels = [1, 2, 3, 4, 5], confirmatio
           imageUrl={
             userRating === null || val <= userRating
               ? "https://upload.wikimedia.org/wikipedia/commons/6/6e/Super_Mario_Bros._%E2%80%93_Overworld_Star.png"
-              : "https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/118-1024.png"
+              : "https://cdn3.iconfinder.com/data/icons/wpzoom-developer-icon-set/500/118-1024.png" 
           }
         />
       ))}
