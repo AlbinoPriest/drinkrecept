@@ -6,7 +6,7 @@ import { useRecipesContext } from "./RecipesContext.jsx";
 export default function RatingForm({ ratingLevels = [1, 2, 3, 4, 5], confirmationAction, recipe }) {
   const [userRating, setUserRating] = useState(null);
   const [isRatingDisabled, disableRating] = useState(false);
-  // Some comment
+  // Yet another comment
   const { updateAvgRating, updateUserRatings, userRatings } = useRecipesContext();
 
   useEffect(() => {
